@@ -3,10 +3,7 @@ import * as THREE from 'three';
 import TWEEN from '@tweenjs/tween.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-//GLOBALS
-const MoonSize = 8
 
-// Setup
 
 const scene = new THREE.Scene();
 
@@ -42,16 +39,13 @@ function moveCamera(){
 
 document.body.onscroll = moveCamera;
 
-// Animation Loop
 //const lightHelper = new THREE.PointLightHelper(pointLight)
 //const gridHelper = new THREE.GridHelper(200, 50);
 //scene.add(lightHelper, gridHelper)
 //const controls = new OrbitControls(camera, renderer.domElement);
 function animate() {
   requestAnimationFrame(animate);
-//  moon.rotation.x += 0.003;
- // Earth.rotation.x += 0.003;
- // venuse.rotation.x += 0.003;
+
   
   
  //controls.update();
@@ -184,13 +178,16 @@ var nextBtn = document.getElementById('button')
 console.log(LAST_PLANET);
 console.log(PLANETS_COUNT);
 window.addEventListener('wheel', function(event){
-  console.log("SCROLL");
+
 
  if (event.deltaY > 0) {
   console.log("DOWN");
   if(LAST_PLANET != PLANETS_COUNT){
     LAST_PLANET += 1; 
     var PLANET_DATA = MOON_LIST[Object.keys(MOON_LIST)[LAST_PLANET]]
+    var PLANET_NAME = Object.keys(MOON_LIST)[LAST_PLANET]; 
+    console.log(PLANET_NAME);
+    startVoice(PLANET_NAME)
 
     SetElementHtmlContent(PLANET_DATA)
     next(PLANET_DATA.position.x - 15)
@@ -201,6 +198,8 @@ window.addEventListener('wheel', function(event){
     console.log(LAST_PLANET);
     LAST_PLANET -= 1; 
     var PLANET_DATA = MOON_LIST[Object.keys(MOON_LIST)[LAST_PLANET]]
+    var PLANET_NAME = Object.keys(MOON_LIST)[LAST_PLANET]; 
+    startVoice(PLANET_NAME)
     console.log(PLANET_DATA.position);
     SetElementHtmlContent(PLANET_DATA)
     next(PLANET_DATA.position.x - 15)
@@ -218,4 +217,23 @@ function SetElementHtmlContent(PLANET_DATA) {
 
   title.innerHTML = PLANET_DATA.text.title
   text.innerHTML = PLANET_DATA.text.text
+}
+
+let previousAudio = null;
+
+function startVoice(name) {
+  if (previousAudio !== null) {
+      previousAudio.pause();
+      previousAudio.currentTime = 0; 
+  }
+  
+
+  let audioElement = document.getElementById("silentAudio");
+
+  audioElement.src = `audio/${name}.mp3`;
+  
+
+  audioElement.play(); 
+
+  previousAudio = audioElement;
 }

@@ -1,0 +1,43 @@
+@import url("https://use.typekit.net/jmk3xov.css");
+
+
+:root{
+  --spacing: 5fr;
+}
+body{
+  overflow-y: hidden;
+}
+
+canvas{
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+
+main {
+  color: #fff;
+  z-index: 99;
+  position: absolute;
+  
+}
+
+
+
+.content{
+ position: fixed;
+  padding: 5rem;
+  width: 30%;
+   height: 100%;
+  background-color: rgba(19, 20, 23, 0.763);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.content h1{
+  font-size: 5rem;
+}
+
+.content span{
+  font-size: 1.2rem;
+  line-height: 30px;
+}
